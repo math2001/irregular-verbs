@@ -186,7 +186,6 @@ h1 {
 
 .message {
     --color: rgba(255, 255, 255, 0.9);
-    animation: pop .3s;
     background-color: #95a5a6;
     border-radius: 1px;
     box-shadow: 0 0 10px #333;
@@ -196,6 +195,14 @@ h1 {
     padding: 5px 15px;
     position: relative;
     width: 500px;
+}
+
+.message[data-type] {
+    animation: pop .3s;
+}
+
+.message:not([data-type]) {
+    transform: scale(0);
 }
 
 .message p {
