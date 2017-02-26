@@ -35,5 +35,4 @@ class EventEmitter {
 
 EventEmitter.init()
 
-exports.EventEmitter = EventEmitter
-exports.EM = EventEmitter
+module.exports = EventEmitter

@@ -1,31 +1,13 @@
 "use strict";
 
 const $ = require('jquery')
-const {choice, rnd} = require('./random')
-const {EM} = require('./event-emitter')
 const irregurlarVerbs = require('english-irregular-verbs')
+const random = require('./js/random')
+const EM = require('./js/event-emitter')
+const Score = require('./js/score')
+const Message = require('./js/message')
 
-require('string-format').extend(String.prototype, {})
-
-class Score {
-
-    static init() {
-        this.score = 0
-    }
-
-    static bump() {
-        this.score ++
-    }
-
-    static drop(weight) {
-        this.score -= weight
-    }
-
-    static render() {
-        // CSW: ignore
-        console.log('score is', this.score);
-    }
-}
+require('string-format').extend(String.prototype, {}) // set String::format
 
 class QuestionManager {
 
@@ -58,17 +40,15 @@ class QuestionManager {
 
         if (errorLevel == 0) {
             Score.bump()
-            this.show('success')
+            Message.say("Well done! That's a valid answer!", 'success')
             this.ask()
         } else {
-            this.show('error', errorLevel)
+            Message.say("Oops... There {} {} error{}".format(errorLevel > 1 ? 'are' : 'is',
+                                                             errorLevel,
+                                                             errorLevel > 1 ? 's' : ''),
+                        'error')
             Score.drop(errorLevel)
         }
-    }
-
-    static show(type, level) {
-        // CSW: ignore
-        console.log('show a', type, level)
     }
 
     static getErrorLevel() {
@@ -87,7 +67,7 @@ class QuestionManager {
     }
 
     static pickVerb() {
-        const key = choice(Object.keys(irregurlarVerbs))
+        const key = random.choice(Object.keys(irregurlarVerbs))
         return [key, irregurlarVerbs[key]['past'], irregurlarVerbs[key]['participles']]
     }
 
@@ -123,7 +103,7 @@ class QuestionManager {
 
     static ask() {
         this.verb = this.pickVerb()
-        this.refIndex = rnd(0, 2, true)
+        this.refIndex = random.rnd(0, 2, true)
         this.render()
     }
 
@@ -144,6 +124,8 @@ class QuestionManager {
         })
     }
 
+    
+
     browsePages()
 
     EM.on('browse', pageId => {
@@ -156,5 +138,6 @@ class QuestionManager {
 
     QuestionManager.init()
     Score.init()
+    Message.init()
 
 })()
