@@ -1,0 +1,25 @@
+{
+  "name": "irregular-verbs",
+  "version": "0.1.0",
+  "description": "A simple tool to learn irregular verbs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "git+https://github.com/math2001/irregular-verbs.git",
+  "keywords": [
+    "english",
+    "verbs"
+  ],
+  "author": "math2001",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/math2001/irregular-verbs/issues"
+  },
+  "homepage": "https://github.com/math2001/irregular-verbs#readme",
+  "dependencies": {
+    "english-irregular-verbs": "^0.2.0",
+    "jquery": "^3.1.1",
+    "string-format": "^0.5.0"
+  }
+}

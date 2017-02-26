@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<body>
+
+    <section class="page current" id="home">
+        <h1>Ready to learn?</h1>
+        <ul>
+        <li><button class="btn primary" data-goto="play">Play!</button></li>
+        <li><button class="btn" data-godo="about">About</button></li>
+        </ul>
+    </section>
+
+    <section class="page " id="play">
+        <h1>Fill that up!</h1>
+
+        <div class="box large light">
+            <div id="form">
+                <div class="input">
+                    <input type="text" id="infinite" required>
+                    <span class="placeholder">Infinite</span>
+                </div>
+                <div class="input">
+                    <input type="text" id="simple" required>
+                    <span class="placeholder">Simple</span>
+                </div>
+                <div class="input">
+                    <input type="text" id="participle" required>
+                    <span class="placeholder">Participle</span>
+                </div>
+            </div>
+            <p class="align-right">
+                <button id="hint" class="btn">Could you give me a hint?</button>
+                <button id="check" class="btn primary">Check!</button>
+            </p>
+        </div>
+    </section>
+
+    <script type="text/javascript" src="./app.js"></script>
+</body>
+</html>

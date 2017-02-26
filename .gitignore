@@ -1,0 +1,4 @@
+__pycache__
+*.pyc
+Thumbs.db
+node_modules/
