@@ -45,14 +45,14 @@ class QuestionManager {
     static getErrorLevel() {
         let errorLevel = 0, value;
 
-        value = this.$infinite.val()
-        if (value != undefined && value.toLowerCase() != this.verb[0]) errorLevel++
+        if (this.$infinite.attr('disabled') != 'disabled'
+            && this.$infinite.val().toLowerCase() != this.verb[0]) errorLevel++
 
-        value = this.$simple.val()
-        if (value != undefined && value.toLowerCase() != this.verb[1]) errorLevel++
+        if (this.$simple.attr('disabled') != 'disabled'
+            && this.$simple.val().toLowerCase() != this.verb[1]) errorLevel++
 
-        value = this.$participle.val()
-        if (value != undefined && !this.verb[2].includes(value.toLowerCase())) errorLevel++
+        if (this.$participle.attr('disabled') != 'disabled'
+            && !this.verb[2].includes(this.$participle.val().toLowerCase())) errorLevel++
 
         return errorLevel
     }
