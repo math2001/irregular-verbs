@@ -21,7 +21,8 @@ class Score {
     }
 
     static render() {
-        this.$score.text(this.score)
+        // this is needed to re-run the animation
+        this.$score.replaceWith((this.$score = this.$score.clone().text(this.score)))
     }
 }
 

@@ -265,8 +265,11 @@ h1 {
 
 .score {
     text-align: center;
+    margin-top: 0;
+    margin-bottom: 30px;
 }
 .score-number {
+    display: inline-block;
     animation: pop .3s;
 }
 
