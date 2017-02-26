@@ -81,7 +81,7 @@ class QuestionManager {
         if (value != undefined && value.toLowerCase() != this.verb[1]) errorLevel++
 
         value = this.$participle.val()
-        if (value != undefined && value.toLowerCase() != this.verb[2]) errorLevel++
+        if (value != undefined && !this.verb[2].includes(value.toLowerCase())) errorLevel++
 
         return errorLevel
     }
