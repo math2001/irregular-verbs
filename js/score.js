@@ -4,6 +4,12 @@ class Score {
 
     static init() {
         this.score = 0
+        this.cacheDOM()
+        this.render()
+    }
+
+    static cacheDOM() {
+        this.$score = $("#score")
     }
 
     static bump() {
@@ -15,8 +21,7 @@ class Score {
     }
 
     static render() {
-        // CSW: ignore
-        console.log('score is', this.score);
+        this.$score.text(this.score)
     }
 }
 

@@ -40,6 +40,8 @@ class QuestionManager {
                         'error')
             Score.drop(errorLevel)
         }
+        Score.render()
+        
     }
 
     static getErrorLevel() {
@@ -58,6 +60,7 @@ class QuestionManager {
     }
 
     static pickVerb() {
+        // this is where all the magic is going to happend
         const key = random.choice(Object.keys(irregurlarVerbs))
         return [key, irregurlarVerbs[key]['past'], irregurlarVerbs[key]['participles']]
     }

@@ -21,7 +21,7 @@ class Message {
         })
     }
 
-    static say(message, type, time=5000) {
+    static say(message, type, time=3000) {
         if (typeof this._lastTimeout != 'undefined') {
             clearTimeout(this._lastTimeout)
         }

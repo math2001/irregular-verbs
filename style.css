@@ -37,6 +37,11 @@ input + .placeholder {
     color: #555;
 }
 
+input[disabled] {
+    color: inherit;
+    font-style: italic;
+}
+
 input:focus + .placeholder,
 input:valid + .placeholder,
 input[disabled] + .placeholder {
@@ -256,6 +261,13 @@ h1 {
 
 .message .close:hover {
     opacity: 1;
+}
+
+.score {
+    text-align: center;
+}
+.score-number {
+    animation: pop .3s;
 }
 
 @keyframes pop {

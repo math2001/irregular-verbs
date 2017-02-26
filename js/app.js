@@ -24,8 +24,6 @@ require('string-format').extend(String.prototype, {}) // set String::format
         })
     }
 
-
-
     browsePages()
 
     EM.on('browse', pageId => {
@@ -39,5 +37,6 @@ require('string-format').extend(String.prototype, {}) // set String::format
     QuestionManager.init()
     Score.init()
     Message.init()
+    QuestionManager.ask()
 
 })()
