@@ -21,13 +21,13 @@ class Message {
         })
     }
 
-    static say(message, type, time=3000) {
+    static say(message, type, time=4000) {
         if (typeof this._lastTimeout != 'undefined') {
             clearTimeout(this._lastTimeout)
         }
 
         if (message != null) {
-            this.$para.text(message)
+            this.$para.html(message)
         }
         let $clone = this.$message.clone()
         this.$message.before($clone).remove()

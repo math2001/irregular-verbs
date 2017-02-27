@@ -37,6 +37,5 @@ require('string-format').extend(String.prototype, {}) // set String::format
     QuestionManager.init()
     Score.init()
     Message.init()
-    QuestionManager.ask()
 
 })()

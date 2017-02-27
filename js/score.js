@@ -12,11 +12,11 @@ class Score {
         this.$score = $("#score")
     }
 
-    static bump() {
-        this.score ++
+    static bump(helium_quantity=1) {
+        this.score += helium_quantity
     }
 
-    static drop(weight) {
+    static drop(weight=1) {
         this.score -= weight
     }
 

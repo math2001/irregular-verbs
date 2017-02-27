@@ -30,18 +30,42 @@ class QuestionManager {
         const errorLevel = this.getErrorLevel()
 
         if (errorLevel == 0) {
-            Score.bump()
-            Message.say("Well done! That's a valid answer!", 'success')
+            if (this.failed_times == 0) {
+                Score.bump(3)
+                Message.say("Well done! That's a valid answer!", 'success')
+            } else if (this.failed_times >= 1) {
+                Message.say("Hum... That's not perfect, is it? 🙄 Get it right straight away next time, OK! 😠", 'success')
+                Score.bump(1)
+            }
+            else if (this.failed_times >= 2) {
+                Message.say("Finally! Hope you'll spit it out faster next time! 😠😉<br>Ain't giving you any score.", 'success')
+            }
             this.ask()
         } else {
-            Message.say("Oops... There {} {} error{}".format(errorLevel > 1 ? 'are' : 'is',
-                                                             errorLevel,
-                                                             errorLevel > 1 ? 's' : ''),
-                        'error')
+            if (this.failed_times >= 2) {
+            }
+            const show_answer = () => {
+                Message.say("Oh, that's not good. You have to stop <b>guessing</b>! 😡 Here's the answer.", 'info')
+                this.show_answer()
+            }
+
+            if (errorLevel == 1) {
+                if (this.failed_times >= 3) {
+                    return show_answer()
+                }
+                Message.say("You missed one... 😕", 'error')
+            } else if (errorLevel == 2) {
+                if (this.failed_times >= 2) {
+                    return show_answer()
+                }
+                Message.say("Pff... You're hopeless. 🙄 <b><big>2</big></b> mistakes{}! 😡"
+                            .format(this.failed_times >= 1 ? ' <b><big>again</big><b>' : ''), 'error')
+            }
             Score.drop(errorLevel)
+            this.failed_times += 1
         }
         Score.render()
-        
+
     }
 
     static getErrorLevel() {
@@ -96,6 +120,7 @@ class QuestionManager {
     }
 
     static ask() {
+        this.failed_times = 0
         this.verb = this.pickVerb()
         this.refIndex = random.rnd(0, 2, true)
         this.render()
