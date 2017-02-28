@@ -5,6 +5,7 @@ class Score {
     static init() {
         this.score = 0
         this.cacheDOM()
+        this.bindEvents()
         this.render()
     }
 
@@ -23,6 +24,25 @@ class Score {
     static render() {
         // this is needed to re-run the animation
         this.$score.replaceWith((this.$score = this.$score.clone().text(this.score)))
+    }
+
+    static onQuestionCheck(data) {
+        const {errorLevel, failedTimes} = data
+        if (errorLevel == 0) {
+            if (failedTimes == 0) {
+                this.bump(3)
+            } else {
+                this.bump(1)
+            }
+        } else {
+            this.drop(errorLevel)
+        }
+        this.render()
+
+    }
+
+    static bindEvents() {
+        EM.on('check question', this.onQuestionCheck.bind(this))
     }
 }
 
