@@ -31,7 +31,7 @@ class Score {
         if (errorLevel == 0) {
             if (failedTimes == 0) {
                 this.bump(3)
-            } else {
+            } else if (failedTimes == 1) {
                 this.bump(1)
             }
         } else {

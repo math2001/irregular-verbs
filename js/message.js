@@ -55,15 +55,15 @@ class Message {
         }
 
         if (errorLevel == 0) {
-            if (this.failedTimes == 0) {
+            if (failedTimes == 0) {
                 this.success("Well done! That's a valid answer!")
-            } else if (this.failedTimes >= 1) {
+            } else if (failedTimes == 1) {
                 this.success("Hum... That's not perfect, is it? 🙄 Get it right straight away next time, OK! 😠")
-            } else if (this.failedTimes >= 2) {
+            } else if (failedTimes >= 2) {
                 this.say("Finally! Hope you'll spit it out faster next time! 😠😉<br>Ain't giving you any score.")
             }
         }  else {
-            const again = failedTimes >= 1 ? '<big><b>again</b><big>' : ''
+            const again = failedTimes >= 2 ? '<big><b>again</b><big>' : ''
             if (errorLevel == 1) {
                 this.error("You missed one... {again}😕".format({again: again + ' '}))
             } else if (errorLevel == 2) {
