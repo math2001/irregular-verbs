@@ -3,10 +3,12 @@
 class QuestionManager {
 
     static init() {
+
         this.$infinite = $("#infinite")
         this.$simple = $("#simple")
         this.$participle = $("#participle")
-        this.$check = $('#check')
+        this.$$inputs = [this.$infinite, this.$simple, this.$participle]
+        this.$checkBtn = $('#check')
 
         this.bindDOM()
     }
@@ -19,7 +21,17 @@ class QuestionManager {
 
             this.check()
         }
-        this.$check.bind('click', this.check.bind(this))
+        this.$checkBtn.bind('click', () => {
+            if (this.$checkBtn.data('action') == 'ask') {
+                // the answer were shown
+                this.$$inputs.forEach(function ($input) {
+                    $input.parent().removeClass('valid').enabled(true)
+                })
+                this.$checkBtn.text('Check!')
+                return this.ask()
+            }
+            this.check.bind(this)
+        })
         this.$infinite.bind('keydown', submit)
         this.$simple.bind('keydown', submit)
         this.$participle.bind('keydown', submit)
@@ -65,7 +77,13 @@ class QuestionManager {
             this.failed_times += 1
         }
         Score.render()
+    }
 
+    static show_answer() {
+        this.$infinite.enabled(false).val(this.verb[0]).parent().addClass('valid')
+        this.$simple.enabled(false).val(this.verb[1]).parent().addClass('valid')
+        this.$participle.enabled(false).val(this.verb[2]).parent().addClass('valid')
+        this.$checkBtn.data('action', 'ask').html('Ok... Next question please! &rarr;')
     }
 
     static getErrorLevel() {
@@ -89,14 +107,11 @@ class QuestionManager {
         return [key, irregurlarVerbs[key]['past'], irregurlarVerbs[key]['participles']]
     }
 
-    static resetInputs() {
-        this.$infinite.val('').removeAttr('disabled')
-        this.$simple.val('').removeAttr('disabled')
-        this.$participle.val('').removeAttr('disabled')
-    }
-
     static render() {
-        this.resetInputs()
+        this.$infinite.val('').enabled(true)
+        this.$simple.val('').enabled(true)
+        this.$participle.val('').enabled(true)
+
         var $el
         if (this.refIndex == 0) {
             $el = this.$infinite

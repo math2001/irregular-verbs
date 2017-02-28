@@ -50,6 +50,15 @@ input[disabled] + .placeholder {
     color: #666;
 }
 
+.input.valid {
+    border-bottom-color: #27ae60;
+}
+
+.input.valid input {
+    color: #198637;
+    font-style: normal;
+}
+
 .page {
     padding: 10px;
     width: 100%;
