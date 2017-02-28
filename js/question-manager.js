@@ -62,42 +62,6 @@ class QuestionManager {
 
         return
 
-        if (errorLevel == 0) {
-            if (this.failedTimes == 0) {
-                Score.bump(3)
-                Message.say("Well done! That's a valid answer!", 'success')
-            } else if (this.failedTimes >= 1) {
-                Message.say("Hum... That's not perfect, is it? 🙄 Get it right straight away next time, OK! 😠", 'success')
-                Score.bump(1)
-            }
-            else if (this.failedTimes >= 2) {
-                Message.say("Finally! Hope you'll spit it out faster next time! 😠😉<br>Ain't giving you any score.", 'success')
-            }
-            this.ask()
-        } else {
-            if (this.failedTimes >= 2) {
-            }
-            const showAnswer = () => {
-                Message.say("Oh, that's not good. You have to stop <b>guessing</b>! 😡 Here's the answer.", 'info')
-                this.showAnswer()
-            }
-
-            if (errorLevel == 1) {
-                if (this.failedTimes >= 3) {
-                    return showAnswer()
-                }
-                Message.say("You missed one... 😕", 'error')
-            } else if (errorLevel == 2) {
-                if (this.failedTimes >= 2) {
-                    return showAnswer()
-                }
-                Message.say("Pff... You're hopeless. 🙄 <b><big>2</big></b> mistakes{}! 😡"
-                            .format(this.failedTimes >= 1 ? ' <b><big>again</big><b>' : ''), 'error')
-            }
-            Score.drop(errorLevel)
-            this.failedTimes += 1
-        }
-        Score.render()
     }
 
     static showAnswer() {
