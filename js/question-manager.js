@@ -3,10 +3,12 @@
 class QuestionManager {
 
     static init() {
+
         this.$infinite = $("#infinite")
         this.$simple = $("#simple")
         this.$participle = $("#participle")
-        this.$check = $('#check')
+        this.$$inputs = [this.$infinite, this.$simple, this.$participle]
+        this.$checkBtn = $('#check')
 
         this.bindDOM()
     }
@@ -19,7 +21,18 @@ class QuestionManager {
 
             this.check()
         }
-        this.$check.bind('click', this.check.bind(this))
+        this.$checkBtn.bind('click', () => {
+            if (this.$checkBtn.data('action') == 'ask') {
+                // the answer were shown
+                this.$$inputs.forEach(function ($input) {
+                    $input.parent().removeClass('valid').enabled(true)
+                })
+                this.$checkBtn.text('Check!')
+                this.$checkBtn.data('action', '')
+                return this.ask()
+            }
+            this.check.call(this)
+        })
         this.$infinite.bind('keydown', submit)
         this.$simple.bind('keydown', submit)
         this.$participle.bind('keydown', submit)
@@ -28,44 +41,70 @@ class QuestionManager {
     static check() {
 
         const errorLevel = this.getErrorLevel()
+        const showAnswer = (errorLevel  == 1 && this.failedTimes == 3)
+                          || (errorLevel == 2 && this.failedTimes == 2)
+
+        if (errorLevel > 0) {
+            this.failedTimes ++
+        }
+
+        EM.emit('check question', {
+            errorLevel: errorLevel,
+            failedTimes: this.failedTimes,
+            showAnswer: showAnswer
+        })
+
+        if (showAnswer) {
+            this.showAnswer()
+        } else if (errorLevel == 0) {
+            this.ask()
+        }
+
+        return
 
         if (errorLevel == 0) {
-            if (this.failed_times == 0) {
+            if (this.failedTimes == 0) {
                 Score.bump(3)
                 Message.say("Well done! That's a valid answer!", 'success')
-            } else if (this.failed_times >= 1) {
+            } else if (this.failedTimes >= 1) {
                 Message.say("Hum... That's not perfect, is it? 🙄 Get it right straight away next time, OK! 😠", 'success')
                 Score.bump(1)
             }
-            else if (this.failed_times >= 2) {
+            else if (this.failedTimes >= 2) {
                 Message.say("Finally! Hope you'll spit it out faster next time! 😠😉<br>Ain't giving you any score.", 'success')
             }
             this.ask()
         } else {
-            if (this.failed_times >= 2) {
+            if (this.failedTimes >= 2) {
             }
-            const show_answer = () => {
+            const showAnswer = () => {
                 Message.say("Oh, that's not good. You have to stop <b>guessing</b>! 😡 Here's the answer.", 'info')
-                this.show_answer()
+                this.showAnswer()
             }
 
             if (errorLevel == 1) {
-                if (this.failed_times >= 3) {
-                    return show_answer()
+                if (this.failedTimes >= 3) {
+                    return showAnswer()
                 }
                 Message.say("You missed one... 😕", 'error')
             } else if (errorLevel == 2) {
-                if (this.failed_times >= 2) {
-                    return show_answer()
+                if (this.failedTimes >= 2) {
+                    return showAnswer()
                 }
                 Message.say("Pff... You're hopeless. 🙄 <b><big>2</big></b> mistakes{}! 😡"
-                            .format(this.failed_times >= 1 ? ' <b><big>again</big><b>' : ''), 'error')
+                            .format(this.failedTimes >= 1 ? ' <b><big>again</big><b>' : ''), 'error')
             }
             Score.drop(errorLevel)
-            this.failed_times += 1
+            this.failedTimes += 1
         }
         Score.render()
+    }
 
+    static showAnswer() {
+        this.$infinite.enabled(false).val(this.verb[0]).parent().addClass('valid')
+        this.$simple.enabled(false).val(this.verb[1]).parent().addClass('valid')
+        this.$participle.enabled(false).val(this.verb[2]).parent().addClass('valid')
+        this.$checkBtn.data('action', 'ask').html('Ok... Next question please! &rarr;')
     }
 
     static getErrorLevel() {
@@ -89,14 +128,11 @@ class QuestionManager {
         return [key, irregurlarVerbs[key]['past'], irregurlarVerbs[key]['participles']]
     }
 
-    static resetInputs() {
-        this.$infinite.val('').removeAttr('disabled')
-        this.$simple.val('').removeAttr('disabled')
-        this.$participle.val('').removeAttr('disabled')
-    }
-
     static render() {
-        this.resetInputs()
+        this.$infinite.val('').enabled(true)
+        this.$simple.val('').enabled(true)
+        this.$participle.val('').enabled(true)
+
         var $el
         if (this.refIndex == 0) {
             $el = this.$infinite
@@ -120,7 +156,7 @@ class QuestionManager {
     }
 
     static ask() {
-        this.failed_times = 0
+        this.failedTimes = 0
         this.verb = this.pickVerb()
         this.refIndex = random.rnd(0, 2, true)
         this.render()

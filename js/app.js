@@ -10,6 +10,8 @@ const QuestionManager = require('./js/question-manager')
 
 require('string-format').extend(String.prototype, {}) // set String::format
 
+$.fn.enabled = function (enabled) { return this.attr('disabled', !enabled) }
+
 ;(function () {
 
     function browsePages() {
@@ -30,12 +32,13 @@ require('string-format').extend(String.prototype, {}) // set String::format
         if (pageId == 'play') {
             setTimeout(function() {
                 QuestionManager.ask()
+                // QuestionManager.show_answer()
             }, 500);
         }
     })
 
-    QuestionManager.init()
-    Score.init()
     Message.init()
+    Score.init()
+    QuestionManager.init()
 
 })()
