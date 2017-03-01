@@ -57,7 +57,12 @@ class QuestionManager {
         } else if (errorLevel == 0) {
             this.ask()
         }
-
+    }
+    static show_answer() {
+        this.$infinite.enabled(false).val(this.verb[0]).parent().addClass('valid')
+        this.$simple.enabled(false).val(this.verb[1]).parent().addClass('valid')
+        this.$participle.enabled(false).val(this.verb[2]).parent().addClass('valid')
+        this.$checkBtn.data('action', 'ask').html('Ok... Next question please! &rarr;')
     }
 
     static showAnswer() {
