@@ -32,7 +32,6 @@ $.fn.enabled = function (enabled) { return this.attr('disabled', !enabled) }
         if (pageId == 'play') {
             setTimeout(function() {
                 QuestionManager.ask()
-                // QuestionManager.show_answer()
             }, 500);
         }
     })

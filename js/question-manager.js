@@ -94,11 +94,11 @@ class QuestionManager {
     }
 
     static render() {
-        this.$$input.forEach(function ($input) {
+        this.$$inputs.forEach(function ($input) {
             $input.val('').enabled(true)
         }, this)
 
-        this.$$inputs[this.refIndex !0 ? 0 : 1].focus()
+        this.$$inputs[this.refIndex != 0 ? 0 : 1].focus()
 
         var val = this.verb[this.refIndex]
         if (typeof val != 'string') {
