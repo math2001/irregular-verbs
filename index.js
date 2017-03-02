@@ -10,9 +10,17 @@ function main() {
 
     function createWindow() {
 
-        mainWindow = new BrowserWindow({width: 500, height: 400})
+        mainWindow = new BrowserWindow({
+            width: 800,
+            height: 700,
+            show: false,
+            center: true,
+        })
         mainWindow.loadURL(`file://${__dirname}/index.html`)
-        // mainWindow.setMenu(null)
+
+        mainWindow.on('ready-to-show', () => {
+            mainWindow.show()
+        })
 
         mainWindow.on('closed', function () {
             mainWindow = null
