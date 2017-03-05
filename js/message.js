@@ -24,6 +24,7 @@ class Message {
     }
 
     static say(message, type, time=4000) {
+        message = emojione.toImage(message)
         if (typeof this._lastTimeout != 'undefined') {
             clearTimeout(this._lastTimeout)
         }

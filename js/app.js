@@ -1,12 +1,16 @@
 "use strict";
 
 const $ = require('jquery')
+const emojione = require('./js/emojione.min')
 const irregurlarVerbs = require('english-irregular-verbs')
 const random = require('./js/random')
 const EM = require('./js/event-emitter')
 const Score = require('./js/score')
 const Message = require('./js/message')
 const QuestionManager = require('./js/question-manager')
+
+emojione.imagePathSVG = 'imgs/emojione/'
+emojione.imageType = 'svg'
 
 require('string-format').extend(String.prototype, {}) // set String::format
 
