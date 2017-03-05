@@ -1,5 +1,7 @@
 "use strict";
 
+const {openExternal} = require('electron').shell
+
 const $ = require('jquery')
 const emojione = require('./js/emojione.min')
 const irregurlarVerbs = require('english-irregular-verbs')
@@ -44,6 +46,11 @@ $.fn.enabled = function (enabled) { return this.attr('disabled', !enabled) }
     $('[need-transform-to-emoji]').html(function () {
         $(this).html(emojione.toImage($(this).html()))
     }).removeAttr('need-transform-to-emoji')
+
+    $(document.body).on('click', 'a[target="browser"]', function (e) {
+        e.preventDefault()
+        openExternal($(this).attr('href'))
+    })
 
     Message.init()
     Score.init()
