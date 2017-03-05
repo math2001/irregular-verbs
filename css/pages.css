@@ -46,3 +46,11 @@
     background-image: url(../imgs/code-bg.jpg);
     filter: blur(0);
 }
+
+#about {
+    font-size: 120%;
+}
+
+#about .image-text-row img {
+    max-height: 100px;
+}
