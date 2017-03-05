@@ -1,31 +1,10 @@
-* {box-sizing: border-box; outline: none; }
-html, body {width: 100%; height: 100%; margin: 0; }
-body {font-family: "Lato", sans-serif; overflow: hidden; }
 
-h1, h2, h3 {font-family: "Poiret One";}
-
-.align-right {
+.text-right {
     text-align: right;
 }
 
-.emojione {
-    font-size:inherit;
-    height:3ex;
-    width:3.1ex;
-    min-height:20px;
-    min-width:20px;
-    display:inline-block;
-    margin:-.2ex .15em .2ex;
-    line-height:normal;
-    vertical-align:middle
-}
-
-img.emojione {
-    width:auto
-}
-
-.hidden {
-    display: none;
+.text-center {
+    text-align: center;
 }
 
 .input {
@@ -75,49 +54,6 @@ input[disabled] + .placeholder {
     font-style: normal;
 }
 
-.page {
-    padding: 10px;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    display: inline-block;
-    transition: left .5s;
-    left: 100%;
-
-}
-.page.current {
-    left: 0;
-}
-
-.page.past {
-    left: -100%;
-}
-
-.page::before {
-    content: "";
-    display: block;
-    position: absolute;
-    left: 0; right: 0;
-    top: 0; bottom: 0;
-    background-size: cover;
-    background-position: center;
-    z-index: -1;
-
-    opacity: 0.9;
-    filter: blur(10px);
-}
-
-#home::before {
-    background-image: url(imgs/home-bg2.jpg);
-}
-
-#home {
-    width: 100%;
-    height: 100%;
-    z-index: 5;
-    position: relative;
-}
 
 h1 {
     text-align: center;
@@ -149,7 +85,7 @@ h1 {
     background-color: rgba(230, 126, 34, 1);
 }
 
-.align-right .btn {
+.text-right .btn {
     margin-right: 0;
 }
 
@@ -194,7 +130,7 @@ h1 {
 
 
 #play::before {
-    background-image: url(./imgs/text.jpg);
+    background-image: url(./../imgs/text.jpg);
     filter: blur(5px)
 }
 
