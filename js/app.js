@@ -25,6 +25,7 @@ $.fn.enabled = function (enabled) { return this.attr('disabled', !enabled) }
             $page.addClass('current')
         }
         EM.on('browse', browse)
+        
         $('[data-goto]').bind('click', function () {
             EM.emit('browse', $(this).data('goto'))
         })

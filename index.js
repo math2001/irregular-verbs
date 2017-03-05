@@ -16,6 +16,7 @@ function main() {
             show: false,
             center: true,
         })
+        
         mainWindow.loadURL(`file://${__dirname}/index.html`)
 
         mainWindow.on('ready-to-show', () => {
