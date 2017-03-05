@@ -25,7 +25,7 @@ $.fn.enabled = function (enabled) { return this.attr('disabled', !enabled) }
             $page.addClass('current')
         }
         EM.on('browse', browse)
-        
+
         $('[data-goto]').bind('click', function () {
             EM.emit('browse', $(this).data('goto'))
         })
@@ -40,6 +40,10 @@ $.fn.enabled = function (enabled) { return this.attr('disabled', !enabled) }
             }, 500);
         }
     })
+
+    $('[need-transform-to-emoji]').html(function () {
+        $(this).html(emojione.toImage($(this).html()))
+    }).removeAttr('need-transform-to-emoji')
 
     Message.init()
     Score.init()
